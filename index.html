@@ -9,20 +9,20 @@
   <script src="main.js"></script>
 </head>
 <body>
-  <form method='POST' action='/form.php'>
+  <form method='POST' action='/form.php' id='importantForm'>
       <div>
           <label>First name:</label>
-          <input name='firstName' type='text' value='Jon'/>
+          <input name='firstName' type='text'/>
         </div>
         <div>
             <label>Last name:</label>
-            <input name='lastName' type='text' value='Jonson'/>
+            <input name='lastName' type='text'/>
         </div>
         <div><label>Zip code:</label>
-            <input name='zipCode' type='number' value='1234'/>
+            <input name='zipCode' type='number'/>
         </div>
         <div>
-            <input type='submit' value='submit'/>
+            <input id='submit' type='submit' value='submit'/>
         </div>
 
   </form>
