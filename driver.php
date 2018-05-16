@@ -17,7 +17,8 @@ if(!glob('chromedriver')) {
 }
 
 // start the selenium server in the background
-exec('./start-selenium.sh');
+exec('java -jar selenium.jar > /dev/null &');
+sleep(2); // wait for the server to start
 
 // start a simple web server in the background
 exec('php -S '.$baseUrl.' > /dev/null &');
