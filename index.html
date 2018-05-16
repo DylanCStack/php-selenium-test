@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Example form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+  <script src="main.js"></script>
+</head>
+<body>
+  <form method='POST' action='/form.php'>
+      <div>
+          <label>First name:</label>
+          <input name='firstName' type='text' value='Jon'/>
+        </div>
+        <div>
+            <label>Last name:</label>
+            <input name='lastName' type='text' value='Jonson'/>
+        </div>
+        <div><label>Zip code:</label>
+            <input name='zipCode' type='number' value='1234'/>
+        </div>
+        <div>
+            <input type='submit' value='submit'/>
+        </div>
+
+  </form>
+</body>
+</html>
