@@ -7,13 +7,17 @@ use Facebook\WebDriver\WebDriverBy;
 
 $baseUrl = 'localhost:8000';
 
-// see if the selenium executable exists, if not download it because what's the point of automation if you have to do it yourself.
+// See if the selenium executable exists, if not download it because what's the point of automation if you have to do it yourself.
 if(!glob('selenium.jar')) {
   file_put_contents(__DIR__.'/selenium.jar', file_get_contents('https://goo.gl/tbd1NS'));
 }
+// See if the chromedriver binary is present, if not download it.
+if(!glob('chromedriver')) {
+  file_put_contents(__DIR__.'/chromedriver', file_get_contents('https://chromedriver.storage.googleapis.com/index.html?path=2.38/'));
+}
 
 // start the selenium server in the background
-exec('java -jar selenium.jar > /dev/null &');
+exec('./start-selenium.sh');
 
 // start a simple web server in the background
 exec('php -S '.$baseUrl.' > /dev/null &');
@@ -22,6 +26,17 @@ $host = 'http://localhost:4444/wd/hub';
 $driver = RemoteWebDriver::create($host, DesiredCapabilities::chrome(), 5000);
 
 $driver->get($baseUrl);
+
+$driver->findElement(WebDriverBy::name('firstName'))->sendKeys('First of the names');
+$driver->findElement(WebDriverBy::name('lastName'))->sendKeys('Name that comes last');
+$driver->findElement(WebDriverBy::name('zipCode'))->sendKeys('1423');
+$driver->findElement(WebDriverBy::id('importantForm'))->submit();
+
+$driver->wait()->until(function () use (&$driver) {
+  echo ($driver->getCurrentURL());
+  return true;
+});
+
 
 $driver->quit();
 exec('lsof -t -i :4444 | xargs kill > /dev/null &');
