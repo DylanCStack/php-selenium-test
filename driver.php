@@ -11,22 +11,6 @@ $baseUrl = 'localhost:8000';
 if(!glob('selenium.jar')) {
   file_put_contents(__DIR__.'/selenium.jar', file_get_contents('https://goo.gl/tbd1NS'));
 }
-// See if the chromedriver binary is present, if not download it.
-if(!glob('chromedriver')) {
-  $temp = tmpfile();
-  fwrite($temp, file_get_contents('https://chromedriver.storage.googleapis.com/2.38/chromedriver_linux64.zip'));
-  $path = stream_get_meta_data($temp)['uri'];
-
-  $zip = new ZipArchive();
-  $zip->open($path);
-
-  $filePath = __DIR__.'/chromedriver';
-  file_put_contents($filePath, $zip->getFromName('chromedriver'));
-  rename($fileName.'/chromedriver', $fileName);// because ZipArchive insists on creating a directory
-
-  $zip->close();
-  fclose($temp);
-}
 
 // start the selenium server in the background
 exec('java -jar selenium.jar > /dev/null &');
